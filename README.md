@@ -1,6 +1,6 @@
 # CarouselNavigator
 
-An attempt to make the spotlight_carousel written by [dnys1 - Dillon Nys](SpotlightCarousel) - More flexible and responsive.
+An attempt to make the spotlight_carousel written by [dnys1 - Dillon Nys](SpotlightCarousel) more flexible and responsive.
 
 ## Using the Carousel
 Simply call the SpotlightCarousel build method, and enter the required parameters.

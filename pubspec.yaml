@@ -1,8 +1,8 @@
-name: spotlight_carousel_updated
+name: carousel_navigator
 description: An attempt to make the spotlight_carousel written by dnys1 - Dillon Nys - More flexible and responsive.
-version: 0.0.1
-author:
-homepage:
+version: 0.0.2
+author: Andrew Krotchko <akrotchko@gmail.com>
+homepage: https://github.com/AKrotchko/CarouselNavigator
 
 environment:
   sdk: ">=2.1.0 <3.0.0"

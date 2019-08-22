@@ -1,4 +1,7 @@
-## [0.0.1] - Pre-Alpha [8/19/19] - [current]
+## [0.0.2] - Pre-Alpha [8/22/19] - [present]
+
+## [0.0.1] - Pre-Alpha [8/19/19] - [8/22/19]
+- Basic functionality and formatting
 
 ### To-do list:
 - ~~Allow the Carousel to include more than just Images. Full Widget support would be ideal.~~ [8/21/19]
