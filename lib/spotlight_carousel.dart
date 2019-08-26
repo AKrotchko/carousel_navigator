@@ -1,4 +1,4 @@
-library spotlight_carousel_updated;
+library carousel_navigator;
 
 import 'dart:math';
 
@@ -7,8 +7,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/painting.dart';
-import 'package:spotlight_carousel_updated/page_indicator.dart';
-
+import 'package:carousel_navigator/page_indicator.dart';
 
 /// The heavy lifting of the Spotlight Carousel comes from the ability to
 /// calculate the correct position and size of each image based on the current
@@ -142,17 +141,19 @@ class _SpotlightCarouselState extends State<SpotlightCarousel> {
   void initState() {
     super.initState();
     if (widget.controller == null) {
-      _controller =
-          PageController(keepPage: false, initialPage: (100 * itemCount)); //Initial page of 100 times the item count ensures endless scrolling in either direction
+      _controller = PageController(
+          keepPage: false,
+          initialPage: (100 *
+              itemCount)); //Initial page of 100 times the item count ensures endless scrolling in either direction
     } else {
       _controller = widget.controller;
     }
     _controller.addListener(() => setState(() {
-      if (_controller.offset >= 0) {
-        _page = _controller.offset / MediaQuery.of(context).size.width;
-        _pageIndex = (_page % itemCount).round() % itemCount;
-      }
-    }));
+          if (_controller.offset >= 0) {
+            _page = _controller.offset / MediaQuery.of(context).size.width;
+            _pageIndex = (_page % itemCount).round() % itemCount;
+          }
+        }));
   }
 
   @override
@@ -160,30 +161,31 @@ class _SpotlightCarouselState extends State<SpotlightCarousel> {
     final double offset = (_page % itemCount) / itemCount;
     // Sort the widgets by distance. Order of LayoutIds determines render order.
     final Map<Widget, double> distance =
-    widget.children.asMap().map((int i, Widget child) {
+        widget.children.asMap().map((int i, Widget child) {
       final double alpha =
           2 * pi * (1 - (i - offset * itemCount) / itemCount) % (2 * pi);
       final double z = cos(alpha);
       return MapEntry<Widget, double>(
           LayoutId(
             id: 'item$i',
-            child: (widget.onTapped == null) //If onTapped is null, the carousel item will not be interact-able
+            child: (widget.onTapped ==
+                    null) //If onTapped is null, the carousel item will not be interact-able
                 ? Container(
-              child: IgnorePointer(
-                child: child,
-              ),
-            )
+                    child: IgnorePointer(
+                      child: child,
+                    ),
+                  )
                 : Material(
-              //If a list of onTapped functions is given, each carousel item will have a unique onTapped method
-              color: (widget.materialColor == null)
-                  ? Colors.transparent
-                  : widget.materialColor,
-              child: InkWell(
-                child: child,
-                onTap: widget.onTapped,
-                splashColor: widget.splashColor,
-              ),
-            ),
+                    //If a list of onTapped functions is given, each carousel item will have a unique onTapped method
+                    color: (widget.materialColor == null)
+                        ? Colors.transparent
+                        : widget.materialColor,
+                    child: InkWell(
+                      child: child,
+                      onTap: widget.onTapped,
+                      splashColor: widget.splashColor,
+                    ),
+                  ),
           ),
           z);
     });
@@ -192,30 +194,30 @@ class _SpotlightCarouselState extends State<SpotlightCarousel> {
         return a.value.compareTo(b.value);
       });
     final List<Widget> images =
-    Map<Widget, double>.fromEntries(itemList).keys.toList();
+        Map<Widget, double>.fromEntries(itemList).keys.toList();
     return Stack(
       children: <Widget>[
         _controller is PageController
-        ? PageView.builder(
-          controller: _controller,
-          scrollDirection: Axis.horizontal,
-          itemBuilder: (BuildContext context, int index) {
-            return Container(
-              width: MediaQuery.of(context).size.width,
-              color: Colors.transparent,
-            );
-          },
-        )
+            ? PageView.builder(
+                controller: _controller,
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (BuildContext context, int index) {
+                  return Container(
+                    width: MediaQuery.of(context).size.width,
+                    color: Colors.transparent,
+                  );
+                },
+              )
             : ListView.builder(
-          controller: _controller,
-          scrollDirection: Axis.horizontal,
-          itemExtent: MediaQuery.of(context).size.width,
-          itemBuilder: (BuildContext context, int index) {
-            return Container(
-              color: Colors.transparent,
-            );
-          },
-        ),
+                controller: _controller,
+                scrollDirection: Axis.horizontal,
+                itemExtent: MediaQuery.of(context).size.width,
+                itemBuilder: (BuildContext context, int index) {
+                  return Container(
+                    color: Colors.transparent,
+                  );
+                },
+              ),
         CustomMultiChildLayout(
           children: images,
           delegate: _SpotlightCarouselLayoutDelegate(
@@ -228,55 +230,55 @@ class _SpotlightCarouselState extends State<SpotlightCarousel> {
         widget.titles == null && widget.descriptions == null
             ? Container()
             : Positioned(
-          bottom: 0,
-          left: 0,
-          right: 0,
-          height: MediaQuery.of(context).size.height / 2,
-          child: Padding(
-            padding: const EdgeInsets.all(25.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                widget.titles != null
-                    ? Text(widget.titles[_pageIndex],
-                    style: Theme.of(context).textTheme.headline)
-                    : Container(),
-                widget.descriptions != null
-                    ? Text(
-                  widget.descriptions[_pageIndex],
-                  style: Theme.of(context)
-                      .textTheme
-                      .body2
-                      .copyWith(fontSize: 18.0),
-                  textAlign: TextAlign.center,
-                )
-                    : Container(),
-              ],
-            ),
-          ),
-        ),
+                bottom: 0,
+                left: 0,
+                right: 0,
+                height: MediaQuery.of(context).size.height / 2,
+                child: Padding(
+                  padding: const EdgeInsets.all(25.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      widget.titles != null
+                          ? Text(widget.titles[_pageIndex],
+                              style: Theme.of(context).textTheme.headline)
+                          : Container(),
+                      widget.descriptions != null
+                          ? Text(
+                              widget.descriptions[_pageIndex],
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .body2
+                                  .copyWith(fontSize: 18.0),
+                              textAlign: TextAlign.center,
+                            )
+                          : Container(),
+                    ],
+                  ),
+                ),
+              ),
         widget.showPageIndicator
             ? Positioned(
-          bottom: 0,
-          left: 0,
-          right: 0,
-          child: Padding(
-            padding: const EdgeInsets.only(bottom: 20.0),
-            child: PageIndicator(
-              page: _page,
-              itemCount: itemCount,
-              color: CupertinoColors.inactiveGray,
-              onPageSelected: (int page) {
-                _controller.animateTo(
-                  page * MediaQuery.of(context).size.width,
-                  duration: _kDuration,
-                  curve: _kCurve,
-                );
-              },
-            ),
-          ),
-        )
+                bottom: 0,
+                left: 0,
+                right: 0,
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom: 20.0),
+                  child: PageIndicator(
+                    page: _page,
+                    itemCount: itemCount,
+                    color: CupertinoColors.inactiveGray,
+                    onPageSelected: (int page) {
+                      _controller.animateTo(
+                        page * MediaQuery.of(context).size.width,
+                        duration: _kDuration,
+                        curve: _kCurve,
+                      );
+                    },
+                  ),
+                ),
+              )
             : Container(),
       ],
     );

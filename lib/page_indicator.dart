@@ -1,4 +1,4 @@
-library spotlight_carousel_updated;
+library carousel_navigator;
 
 import 'dart:math';
 
@@ -40,19 +40,19 @@ class PageIndicator extends StatelessWidget {
         width: _kDotSpacing,
         child: Center(
             child: Material(
-              borderRadius: BorderRadius.circular(_kDotSize * zoom / 2),
-              color: color,
-              child: Container(
-                  width: _kDotSize * zoom,
-                  height: _kDotSize * zoom,
-                  child: InkWell(onTap: () => onPageSelected(pageForClicking))),
-            )));
+          borderRadius: BorderRadius.circular(_kDotSize * zoom / 2),
+          color: color,
+          child: Container(
+              width: _kDotSize * zoom,
+              height: _kDotSize * zoom,
+              child: InkWell(onTap: () => onPageSelected(pageForClicking))),
+        )));
   }
 
   Widget build(BuildContext context) {
     return Container(
       height:
-      _kDotSize * 2, // put in fixed container to avoid "bouncing" on resize
+          _kDotSize * 2, // put in fixed container to avoid "bouncing" on resize
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: List<Widget>.generate(itemCount, _buildDot),
