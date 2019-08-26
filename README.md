@@ -9,8 +9,6 @@ Simply call the SpotlightCarousel build method, and enter the required parameter
 class MyCarousel extends StatelessWidget {
   MyCarousel({this.children});
   
-  List<Widget> children;
-  
   @override
   Widget build(BuildContext context) {
     return SpotlightCarousel(
